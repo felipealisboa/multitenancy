@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>spring-cloud-multitenancy-parent</artifactId>
+	<version>${multitenancy.version}</version>
+	<packaging>pom</packaging>
+
+	<name>Spring Cloud Multitenancy</name>
+	<description>Implements Multitenancy Architecture</description>
+
+	<organization>
+		<name>Involves Tecnologia</name>
+		<url>http://www.involves.com.br</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Wesley Ramos</name>
+			<email>wesley-ramos-de-paula@hotmail.com</email>
+		</developer>
+	</developers>
+
+	<parent>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-parent</artifactId>
+		<version>Camden.SR2</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<java.encoding>UTF-8</java.encoding>
+		<java.version>1.8</java.version>
+		<multitenancy.version>2.17.7.0</multitenancy.version>
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${java.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>spring-cloud-multitenancy-core</module>
+				<module>spring-cloud-multitenancy-stream</module>
+				<module>spring-cloud-multitenancy-web</module>
+				<module>spring-cloud-multitenancy-starter-mongodb</module>
+				<module>spring-cloud-multitenancy-starter-mysql</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>integration</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>spring-cloud-multitenancy-integration-tests</module>
+			</modules>
+		</profile>
+	</profiles>
+
+</project>
