@@ -15,7 +15,7 @@ import com.mongodb.DB;
  * 
  * */
 
-public class MultiTenantMongoDbFactory implements MongoDbFactory  {
+/*public class MultiTenantMongoDbFactory implements MongoDbFactory  {
 
 	HashMap<String, SimpleMongoDbFactory> database; 
 	
@@ -36,4 +36,4 @@ public class MultiTenantMongoDbFactory implements MongoDbFactory  {
 		// TODO Auto-generated method stub
 		return null;
 	}
-}
+}*/
