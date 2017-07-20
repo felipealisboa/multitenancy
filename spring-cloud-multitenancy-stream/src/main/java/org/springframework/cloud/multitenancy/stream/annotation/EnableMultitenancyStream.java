@@ -9,14 +9,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.cloud.multitenancy.core.configuration.MultitenancyCoreConfig;
 import org.springframework.cloud.multitenancy.stream.configuration.MultitenancyStreamConfig;
 
 @Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@ImportAutoConfiguration({MultitenancyStreamConfig.class, MultitenancyCoreConfig.class})
+@ImportAutoConfiguration({MultitenancyStreamConfig.class})
 public @interface EnableMultitenancyStream {
 
 }
