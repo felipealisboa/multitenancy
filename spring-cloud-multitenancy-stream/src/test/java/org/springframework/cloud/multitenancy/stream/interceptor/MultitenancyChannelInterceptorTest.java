@@ -8,6 +8,7 @@ import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentI
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
 import org.springframework.cloud.multitenancy.core.properties.TenantConfigProperties;
 import org.springframework.cloud.multitenancy.stream.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.stream.exception.TenantNotFoundException;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 
@@ -17,22 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MultitenancyChannelInterceptorTest {
 	
 	private static final String FIELD_TENANT = "tenant";
-	
-	
-	@Test
-	public void should_not_runs_the_extraction_of_the_tenant_when_the_message_is_invalid(){
-		
-		String tenant = "CLIENT_ID";
-		boolean jsonMessage = false;
-		SampleMessage message = new SampleMessage("Any message", tenant);
-		
-		MultitenancyConfigLoader multitenancyConfigLoader = Mockito.mock(MultitenancyConfigLoader.class);
-		Mockito.when(multitenancyConfigLoader.getTenant()).thenReturn(new TenantConfigProperties());
-		
-		MultitenancyChannelInterceptor interceptor = new MultitenancyChannelInterceptor(multitenancyConfigLoader);
-		interceptor.preSend(createMessage(message,jsonMessage), null);
-	}
-	
 	
 	@Test(expected=NotIdentifyTenantFieldException.class)
 	public void should_launch_an_exception_when_the_tenant_field_is_not_configured(){
@@ -48,6 +33,22 @@ public class MultitenancyChannelInterceptorTest {
 		interceptor.preSend(createMessage(message,jsonMessage), null);
 	}
 	
+	@Test(expected=TenantNotFoundException.class)
+	public void should_throw_an_exception_when_the_tenant_is_not_sent(){
+		
+		String tenant = null;
+		boolean jsonMessage = true;
+		SampleMessage message = new SampleMessage("Any message", tenant);
+		
+		TenantConfigProperties tenantConfigProperties = new TenantConfigProperties(); 
+		tenantConfigProperties.setField(FIELD_TENANT);
+		
+		MultitenancyConfigLoader multitenancyConfigLoader = Mockito.mock(MultitenancyConfigLoader.class);
+		Mockito.when(multitenancyConfigLoader.getTenant()).thenReturn(tenantConfigProperties);
+		
+		MultitenancyChannelInterceptor interceptor = new MultitenancyChannelInterceptor(multitenancyConfigLoader);
+		interceptor.preSend(createMessage(message,jsonMessage), null);
+	}
 	
 	@Test
 	public void should_extract_the_message_tenant_and_update_the_current_tenant(){
@@ -70,8 +71,7 @@ public class MultitenancyChannelInterceptorTest {
 		assertEquals("The tenant update process did not work correctly", tenant, currentTenant);
 	}
 	
-	
-	
+		
 	/*
 	 * Methods that help in creating the message
 	 *  

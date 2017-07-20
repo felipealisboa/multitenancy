@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
 import org.springframework.cloud.multitenancy.stream.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.stream.exception.TenantNotFoundException;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
@@ -50,8 +51,8 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 			
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode jsonNode = mapper.readTree(message.getPayload().toString());
-			tenant = jsonNode.get(tenantField).asText();
-		
+			tenant =  jsonNode.get(tenantField).isNull() ? null : jsonNode.get(tenantField).asText();
+			
 		} catch (JsonProcessingException ex) {
 			log.error("Failure to extract the tanant:"+ex.getMessage());
 		} catch (IOException ex) {
@@ -59,7 +60,7 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 		}
 		
 		if(tenant == null){
-			throw new NotIdentifyTenantFieldException("property.tenant.field.has.not.been.set");
+			throw new TenantNotFoundException("tenant.not.found");
 		}
 		
 		MultitenancyCurrentInformation.tenant.set(tenant);
