@@ -1,39 +1,39 @@
 package org.springframework.cloud.multitenancy.mongodb.factory;
 
-import java.util.HashMap;
-
+import org.springframework.cloud.multitenancy.mongodb.datasource.MultitenancyDataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.MongoExceptionTranslator;
 
 import com.mongodb.DB;
 
-
 /**
- * @author WRP
  * 
+ * Class responsible for overrride access behavior to datasource
+ * 
+ * @author WRP
  * */
+public class MultiTenantMongoDbFactory implements MongoDbFactory  {
 
-/*public class MultiTenantMongoDbFactory implements MongoDbFactory  {
-
-	HashMap<String, SimpleMongoDbFactory> database; 
+	private MultitenancyDataSource dataSource;
+		
+	public MultiTenantMongoDbFactory(MultitenancyDataSource dataSource){
+		this.dataSource = dataSource;
+	}
 	
 	@Override
 	public DB getDb() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return dataSource.getDataSourceWithCurrentTenant();
 	}
 
 	@Override
 	public DB getDb(String dbName) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return dataSource.getDataSourceWithCurrentTenant();
 	}
 
 	@Override
 	public PersistenceExceptionTranslator getExceptionTranslator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MongoExceptionTranslator();
 	}
-}*/
+}

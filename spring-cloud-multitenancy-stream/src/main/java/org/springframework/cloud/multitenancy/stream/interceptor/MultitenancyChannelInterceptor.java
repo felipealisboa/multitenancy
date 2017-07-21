@@ -7,10 +7,10 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.multitenancy.core.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.core.exception.TenantNotFoundException;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
-import org.springframework.cloud.multitenancy.stream.exception.NotIdentifyTenantFieldException;
-import org.springframework.cloud.multitenancy.stream.exception.TenantNotFoundException;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
@@ -63,7 +63,7 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 			throw new TenantNotFoundException("tenant.not.found");
 		}
 		
-		MultitenancyCurrentInformation.tenant.set(tenant);
+		MultitenancyCurrentInformation.setTenant(tenant);
 		
         return message;
     }

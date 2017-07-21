@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.cloud.multitenancy.core.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.core.exception.TenantNotFoundException;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
 import org.springframework.cloud.multitenancy.core.properties.TenantConfigProperties;
-import org.springframework.cloud.multitenancy.stream.exception.NotIdentifyTenantFieldException;
-import org.springframework.cloud.multitenancy.stream.exception.TenantNotFoundException;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 
@@ -66,7 +66,7 @@ public class MultitenancyChannelInterceptorTest {
 		MultitenancyChannelInterceptor interceptor = new MultitenancyChannelInterceptor(multitenancyConfigLoader);
 		interceptor.preSend(createMessage(message, jsonMessage), null);
 		
-		String currentTenant = MultitenancyCurrentInformation.tenant.get();
+		String currentTenant = MultitenancyCurrentInformation.getTenant();
 		
 		assertEquals("The tenant update process did not work correctly", tenant, currentTenant);
 	}

@@ -1,4 +1,4 @@
-package org.springframework.cloud.multitenancy.stream.exception;
+package org.springframework.cloud.multitenancy.core.exception;
 
 /**
  * @author WRP

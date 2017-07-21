@@ -22,11 +22,6 @@ public @interface MultitenancyEntity {
 	 * Indicates the name of the document or table in which the information will be persisted.
 	 * 
 	 * */
-	String name() default "";
 	
-	/**
-	 * Indicates whether the entity is partitioned by some rule. If it is partitioned the information is inserted at run time
-	 * 
-	 * */
-	boolean partitioning() default false;
+	String name() default "";
 }

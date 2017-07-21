@@ -41,7 +41,7 @@ public class MultitenancyCurrentInformationTest {
 			
 			for (int i = 0; i < numberOfAttempts; i++) {
 				
-				MultitenancyCurrentInformation.tenant.set(tenant);
+				MultitenancyCurrentInformation.setTenant(tenant);
 				
 				try {
 					TimeUnit.SECONDS.sleep(waitingTime);
@@ -49,7 +49,7 @@ public class MultitenancyCurrentInformationTest {
 					log.error("It was not possible to wait for the time to change the variables");
 				}
 				
-				String value = MultitenancyCurrentInformation.tenant.get();
+				String value = MultitenancyCurrentInformation.getTenant();
 				assertEquals("The information was not storing correctly, the object is not thred safe", tenant, value);
 			}			
 		}
