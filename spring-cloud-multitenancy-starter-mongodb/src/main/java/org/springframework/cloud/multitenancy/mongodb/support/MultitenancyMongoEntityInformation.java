@@ -55,7 +55,7 @@ public class MultitenancyMongoEntityInformation<T, ID extends Serializable> exte
 		return collectionName;
 	}
 
-	
+	@Override
 	public String getIdAttribute() {
 		return entityMetadata.getIdProperty().getName();
 	}

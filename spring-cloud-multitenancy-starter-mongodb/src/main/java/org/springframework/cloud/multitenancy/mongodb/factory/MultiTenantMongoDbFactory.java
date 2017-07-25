@@ -1,7 +1,6 @@
 package org.springframework.cloud.multitenancy.mongodb.factory;
 
 import org.springframework.cloud.multitenancy.mongodb.datasource.MultitenancyDataSource;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoExceptionTranslator;
@@ -23,12 +22,12 @@ public class MultiTenantMongoDbFactory implements MongoDbFactory  {
 	}
 	
 	@Override
-	public DB getDb() throws DataAccessException {
+	public DB getDb(){
 		return dataSource.getDataSourceWithCurrentTenant();
 	}
 
 	@Override
-	public DB getDb(String dbName) throws DataAccessException {
+	public DB getDb(String dbName){
 		return dataSource.getDataSourceWithCurrentTenant();
 	}
 

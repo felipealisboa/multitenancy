@@ -5,6 +5,7 @@ package org.springframework.cloud.multitenancy.core.catalog;
  * 
  * @author WRP
  * */
+@FunctionalInterface
 public interface MultitenancyDataSourceCatalog {
 	
 	public MultitenancyTenantInformation getDataSourceByTenant(String tenant);	

@@ -30,12 +30,12 @@ public class MultitenancyMongoDbConfig {
     }
 	
 	@Bean
-    public MongoDbFactory mongoDbFactory(MultitenancyDataSource dataSource) throws Exception {
+    public MongoDbFactory mongoDbFactory(MultitenancyDataSource dataSource){
         return new MultiTenantMongoDbFactory(dataSource);
     }
 	
 	@Bean
-    public MongoTemplate mongoTemplate(MongoDbFactory factory) throws Exception {
+    public MongoTemplate mongoTemplate(MongoDbFactory factory){
         return new MongoTemplate(factory);
     }
 }

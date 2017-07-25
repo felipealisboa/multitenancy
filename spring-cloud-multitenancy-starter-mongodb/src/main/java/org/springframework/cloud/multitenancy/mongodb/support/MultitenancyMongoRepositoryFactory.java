@@ -71,7 +71,8 @@ public class MultitenancyMongoRepositoryFactory extends RepositoryFactorySupport
 	protected QueryLookupStrategy getQueryLookupStrategy(Key key, EvaluationContextProvider evaluationContextProvider) {
 		return new MongoQueryLookupStrategy(operations, evaluationContextProvider, mappingContext);
 	}
-
+	
+	@Override
 	public <T, ID extends Serializable> MongoEntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
 		return getEntityInformation(domainClass, null);
 	}
@@ -88,7 +89,7 @@ public class MultitenancyMongoRepositoryFactory extends RepositoryFactorySupport
 
 		Class<ID> classId = information != null ? (Class<ID>) information.getIdType() : null;
 		
-		return new MultitenancyMongoEntityInformation<T, ID>((MongoPersistentEntity<T>) entity, classId, config);
+		return new MultitenancyMongoEntityInformation<>((MongoPersistentEntity<T>) entity, classId, config);
 	}
 	
 

@@ -50,9 +50,8 @@ public class MultitenancyManagementConnection implements MultitenancyDataSourceC
 	}
 	
 	private DB getDataSourceInstantce(MultitenancyTenantInformation dataSourceInfo, MongoClient mongo) {
-		SimpleMongoDbFactory factory = new SimpleMongoDbFactory(mongo, dataSourceInfo.getDatabase());
-		DB db = factory.getDb();
-		return db;
+		SimpleMongoDbFactory factory = new SimpleMongoDbFactory(mongo, dataSourceInfo.getDatabase());		
+		return factory.getDb();
 	}
 
 	private MongoClient createMongoClient(MultitenancyTenantInformation dataSourceInfo, ServerAddress host) {
@@ -65,11 +64,10 @@ public class MultitenancyManagementConnection implements MultitenancyDataSourceC
 	}
 
 	private MongoCredential createMongoCredential(MultitenancyTenantInformation dataSourceInfo) {
-		MongoCredential credential = MongoCredential.createCredential(
-				dataSourceInfo.getUsername(),
-				dataSourceInfo.getDatabase(),
-				dataSourceInfo.getPassword().toCharArray());
-		return credential;
+		return MongoCredential.createCredential(
+					dataSourceInfo.getUsername(),
+					dataSourceInfo.getDatabase(),
+					dataSourceInfo.getPassword().toCharArray()); 
 	}
 
 	private boolean shouldAuthenticate(MultitenancyTenantInformation dataSourceInfo) {

@@ -6,10 +6,13 @@ package org.springframework.cloud.multitenancy.core.exception;
  */
 public class TenantNotFoundException extends RuntimeException {
 
-
 	private static final long serialVersionUID = 1L;
-	
-	public TenantNotFoundException(String message){
+
+	public TenantNotFoundException(String message) {
 		super(message);
 	}
+
+	public TenantNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

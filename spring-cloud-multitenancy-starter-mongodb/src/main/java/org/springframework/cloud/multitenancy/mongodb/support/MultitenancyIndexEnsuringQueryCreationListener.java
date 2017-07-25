@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -21,12 +19,10 @@ import org.springframework.util.Assert;
 /**
  * 
  * @author WRP
- * */
+ */
 public class MultitenancyIndexEnsuringQueryCreationListener implements QueryCreationListener<PartTreeMongoQuery> {
-	
-	private static final Set<Type> GEOSPATIAL_TYPES = new HashSet<Type>(Arrays.asList(Type.NEAR, Type.WITHIN));
-	private static final Logger LOG = LoggerFactory.getLogger(MultitenancyIndexEnsuringQueryCreationListener.class);
 
+	private static final Set<Type> GEOSPATIAL_TYPES = new HashSet<>(Arrays.asList(Type.NEAR, Type.WITHIN));
 	private final MongoOperations operations;
 
 	public MultitenancyIndexEnsuringQueryCreationListener(MongoOperations operations) {
@@ -35,6 +31,7 @@ public class MultitenancyIndexEnsuringQueryCreationListener implements QueryCrea
 		this.operations = operations;
 	}
 
+	@Override
 	public void onCreation(PartTreeMongoQuery query) {
 
 		PartTree tree = query.getTree();
@@ -59,7 +56,6 @@ public class MultitenancyIndexEnsuringQueryCreationListener implements QueryCrea
 
 		MongoEntityMetadata<?> metadata = query.getQueryMethod().getEntityInformation();
 		operations.indexOps(metadata.getCollectionName()).ensureIndex(index);
-		LOG.debug(String.format("Created %s!", index));
 	}
 
 	private static Direction toDirection(Sort sort, String property) {
