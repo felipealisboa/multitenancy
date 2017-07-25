@@ -73,12 +73,12 @@ public class MultitenancyMongoRepositoryFactory extends RepositoryFactorySupport
 	}
 	
 	@Override
-	public <T, ID extends Serializable> MongoEntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
+	public <T, I extends Serializable> MongoEntityInformation<T, I> getEntityInformation(Class<T> domainClass) {
 		return getEntityInformation(domainClass, null);
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T, ID extends Serializable> MongoEntityInformation<T, ID> getEntityInformation(Class<T> domainClass, RepositoryInformation information) {
+	private <T, I extends Serializable> MongoEntityInformation<T, I> getEntityInformation(Class<T> domainClass, RepositoryInformation information) {
 
 		MongoPersistentEntity<?> entity = mappingContext.getPersistentEntity(domainClass);
 
@@ -87,7 +87,7 @@ public class MultitenancyMongoRepositoryFactory extends RepositoryFactorySupport
 					String.format("Could not lookup mapping metadata for domain class %s!", domainClass.getName()));
 		}
 
-		Class<ID> classId = information != null ? (Class<ID>) information.getIdType() : null;
+		Class<I> classId = information != null ? (Class<I>) information.getIdType() : null;
 		
 		return new MultitenancyMongoEntityInformation<>((MongoPersistentEntity<T>) entity, classId, config);
 	}

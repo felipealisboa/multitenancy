@@ -15,7 +15,7 @@ import org.springframework.util.Assert;
  * 
  * @author WRP
  * */
-public class MultitenancyRepositoryFactoryBean <T extends Repository<S, ID>, S, ID extends Serializable> extends RepositoryFactoryBeanSupport<T, S, ID> {
+public class MultitenancyRepositoryFactoryBean <T extends Repository<S, I>, S, I extends Serializable> extends RepositoryFactoryBeanSupport<T, S, I> {
 	
 	private MongoOperations operations;
 	private boolean createIndexesForQueryMethods = false;

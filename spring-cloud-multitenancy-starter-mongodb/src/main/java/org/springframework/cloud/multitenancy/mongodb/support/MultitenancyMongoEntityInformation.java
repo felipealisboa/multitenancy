@@ -17,10 +17,10 @@ import org.springframework.data.repository.core.support.PersistentEntityInformat
  * 
  * @author WRP
  * */
-public class MultitenancyMongoEntityInformation<T, ID extends Serializable> extends PersistentEntityInformation<T, ID> implements MongoEntityInformation<T, ID> {
+public class MultitenancyMongoEntityInformation<T, I extends Serializable> extends PersistentEntityInformation<T, I> implements MongoEntityInformation<T, I> {
 	
 	private final MongoPersistentEntity<T> entityMetadata;
-	private final Class<ID> fallbackIdType;
+	private final Class<I> fallbackIdType;
 	private final MultitenancyConfigLoader config;
 	
 	
@@ -29,11 +29,11 @@ public class MultitenancyMongoEntityInformation<T, ID extends Serializable> exte
 	}
 
 	@SuppressWarnings("unchecked")
-	public MultitenancyMongoEntityInformation(MongoPersistentEntity<T> entity, Class<ID> idType, MultitenancyConfigLoader config) {
+	public MultitenancyMongoEntityInformation(MongoPersistentEntity<T> entity, Class<I> idType, MultitenancyConfigLoader config) {
 		super(entity);
 
 		this.entityMetadata = entity;
-		this.fallbackIdType = idType != null ? idType : (Class<ID>) ObjectId.class;
+		this.fallbackIdType = idType != null ? idType : (Class<I>) ObjectId.class;
 		this.config = config;
 	}
 
@@ -63,12 +63,12 @@ public class MultitenancyMongoEntityInformation<T, ID extends Serializable> exte
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public Class<ID> getIdType() {
+	public Class<I> getIdType() {
 
 		if (this.entityMetadata.hasIdProperty()) {
 			return super.getIdType();
 		}
 
-		return fallbackIdType != null ? fallbackIdType : (Class<ID>) ObjectId.class;
+		return fallbackIdType != null ? fallbackIdType : (Class<I>) ObjectId.class;
 	}
 }
