@@ -7,5 +7,6 @@ package org.springframework.cloud.multitenancy.core.properties;
  * */
 public enum MultitenancyStrategyEnum {
 	SCHEME,
-	REPOSITORY;	
+	COLLECTION,
+	TABLE;	
 }

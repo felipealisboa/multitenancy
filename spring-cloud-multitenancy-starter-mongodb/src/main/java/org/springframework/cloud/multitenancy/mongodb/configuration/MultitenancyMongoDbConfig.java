@@ -11,6 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+/**
+ * Sets the bean
+ * 
+ * @author WRP
+ * */
 @Configuration
 public class MultitenancyMongoDbConfig {
 	

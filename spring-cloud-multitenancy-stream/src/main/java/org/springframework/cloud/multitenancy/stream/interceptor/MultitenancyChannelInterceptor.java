@@ -60,7 +60,7 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 		}
 		
 		if(tenant == null){
-			throw new TenantNotFoundException("tenant.not.found");
+			throw new TenantNotFoundException("Could not extract message tenant");
 		}
 		
 		MultitenancyCurrentInformation.setTenant(tenant);
@@ -101,7 +101,7 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 		String fieldTenant = config.getTenant().getField();
 
 		if(fieldTenant == null){
-			throw new NotIdentifyTenantFieldException("property.tenant.field.has.not.been.set");
+			throw new NotIdentifyTenantFieldException("The tenant field was not defined");
 		}
 		
 		return fieldTenant;
