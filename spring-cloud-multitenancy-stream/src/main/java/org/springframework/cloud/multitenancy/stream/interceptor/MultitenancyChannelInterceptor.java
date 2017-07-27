@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.multitenancy.core.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.core.exception.PropertyNotSetException;
 import org.springframework.cloud.multitenancy.core.exception.TenantNotFoundException;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
@@ -93,7 +93,7 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 		String fieldTenant = config.getTenant().getField();
 
 		if(fieldTenant == null){
-			throw new NotIdentifyTenantFieldException("The tenant field was not defined");
+			throw new PropertyNotSetException("The tenant field was not defined");
 		}
 		
 		return fieldTenant;

@@ -1,8 +1,9 @@
 package org.springframework.cloud.multitenancy.core.exception;
 
 /**
- * @author WRP
+ *  Throw when the library did not receive the tenant
  * 
+ * @author WRP
  */
 public class TenantNotFoundException extends RuntimeException {
 

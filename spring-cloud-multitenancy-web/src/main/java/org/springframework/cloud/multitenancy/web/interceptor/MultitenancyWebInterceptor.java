@@ -3,19 +3,18 @@ package org.springframework.cloud.multitenancy.web.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.cloud.multitenancy.core.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.core.exception.PropertyNotSetException;
 import org.springframework.cloud.multitenancy.core.exception.TenantNotFoundException;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
+ * Class responsible for extracting the request tenant
  * 
  * @author WRP
  * */
 public class MultitenancyWebInterceptor extends HandlerInterceptorAdapter {
-
-	private static final String FIXO = ".agilepromoter";
 	
 	private MultitenancyConfigLoader config;
 	
@@ -37,41 +36,43 @@ public class MultitenancyWebInterceptor extends HandlerInterceptorAdapter {
 		return true;
 	}
 	
+	
 	/**
-	 * Retrieve the tenant from the request
-	 * 
+	 * Retrieve the tenant through the header or DNS 
 	 * */
 	private String getTenant(HttpServletRequest request){
 		
-		String fieldTenant = getFieldTenant();
 	    String tenant = null;
 	    
-		if(request.getHeader(fieldTenant) != null){
-			tenant = request.getHeader(fieldTenant);	
-		}else{
-			tenant = request.getServerName();
-		}
-		
-		if(tenant.contains(FIXO)){
-			tenant = tenant.substring(0, tenant.indexOf(FIXO));
+	    if(config.getTenant().getField() != null){
+	    	tenant = checkValueIsDNS(request.getHeader(config.getTenant().getField()));
+	    }
+	    
+		if(tenant == null){
+			tenant = checkValueIsDNS(request.getServerName());	
 		}
 		
 		return tenant;
 	}
 	
 
-	/**
-	 * Loads the name of the field containing the tenant
-	 * 
-	 * */
-	private String getFieldTenant(){
+	private String checkValueIsDNS(String tenant){
 		
-		String fieldTenant = config.getTenant().getField();
-
-		if(fieldTenant == null){
-			throw new NotIdentifyTenantFieldException("The tenant field was not defined");
+		if(tenant == null){
+			return tenant; 
 		}
 		
-		return fieldTenant;
+		return tenant.contains(getDNSBase()) ?  tenant.substring(0, tenant.indexOf(getDNSBase())) : tenant;
+	}
+	
+	
+	private String getDNSBase(){
+		String dns = config.getTenant().getDns();
+		
+		if(dns == null){
+			throw new PropertyNotSetException("'spring.cloud.multitenancy.tenant.dns' not configured");
+		}
+		
+		return dns;
 	}
 }
