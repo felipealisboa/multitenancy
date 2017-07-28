@@ -5,14 +5,14 @@ package org.springframework.cloud.multitenancy.core.catalog;
  * 
  * @author WRP
  * */
-public class MultitenancyTenantInformation {
+public abstract class MultitenancyTenantInformation {
 	
 	private String url;
 	private String database;
 	private Integer port;
 	private String username;
 	private String password;
-	
+		
 	public MultitenancyTenantInformation(String url, String database, Integer port, String username, String password){
 		this.url = url;
 		this.database = database;
@@ -32,7 +32,7 @@ public class MultitenancyTenantInformation {
 	public Integer getPort() {
 		return port;
 	}
-	
+		
 	public String getUsername() {
 		return username;
 	}
