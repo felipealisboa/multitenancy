@@ -94,6 +94,38 @@ public class ApplicationStart {
 }
 ```
 
+Por último configurar o catálogo, o qual o multitenancy utiliza para consultar as informações de autenticação
+
+Configurar o bean:
+
+ ```java
+@Configuration
+public class MultitenancyConfig {
+	
+	@Bean
+    public MultitenancyMongoDataSourceCatalog catalog(){
+        return new MultitenancyDatabaseProvider();
+    }
+}
+
+```
+Implementar o catálogo
+```java
+public class MultitenancyDatabaseProvider implements MultitenancyMongoDataSourceCatalog {
+
+	@Override
+	public MultitenancyMongoTenantInformation getDataSourceByTenant(String tenant) {
+		return MultitenancyMongoTenantInformationBuilder.builder()
+                .url("127.0.0.1")
+                .database("database_gps")
+                .writeConcern(WriteConcern.ACKNOWLEDGED)
+                .connectionsPerHost(10)
+                .socketKeepAlive(true)
+                .build();
+	}
+}
+
+```
 
 
 
