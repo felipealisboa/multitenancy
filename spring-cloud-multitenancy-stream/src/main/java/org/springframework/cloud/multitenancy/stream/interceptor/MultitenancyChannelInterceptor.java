@@ -1,13 +1,10 @@
 package org.springframework.cloud.multitenancy.stream.interceptor;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.multitenancy.core.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.core.exception.PropertyNotSetException;
 import org.springframework.cloud.multitenancy.core.exception.TenantNotFoundException;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
@@ -15,7 +12,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,8 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 	
 	private static final List<String> LIST_OF_SUPPORTED_CONTENT_TYPES = Arrays.asList("application/json");
-	private static final Log log = LogFactory.getLog(MultitenancyChannelInterceptor.class);
-	
 	private MultitenancyConfigLoader config;
 	
 	@Autowired
@@ -53,10 +47,8 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 			JsonNode jsonNode = mapper.readTree(message.getPayload().toString());
 			tenant =  jsonNode.get(tenantField).isNull() ? null : jsonNode.get(tenantField).asText();
 			
-		} catch (JsonProcessingException ex) {
-			log.error("Failure to extract the tanant:"+ex.getMessage());
-		} catch (IOException ex) {
-			log.error("Failure to extract the tanant:"+ex.getMessage());
+		} catch (Exception ex) {
+			throw new TenantNotFoundException("Could not extract message tenant",ex);
 		}
 		
 		if(tenant == null){
@@ -101,7 +93,7 @@ public class MultitenancyChannelInterceptor extends ChannelInterceptorAdapter {
 		String fieldTenant = config.getTenant().getField();
 
 		if(fieldTenant == null){
-			throw new NotIdentifyTenantFieldException("The tenant field was not defined");
+			throw new PropertyNotSetException("The tenant field was not defined");
 		}
 		
 		return fieldTenant;

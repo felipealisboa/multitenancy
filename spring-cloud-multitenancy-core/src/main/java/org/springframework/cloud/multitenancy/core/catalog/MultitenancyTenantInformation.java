@@ -5,51 +5,39 @@ package org.springframework.cloud.multitenancy.core.catalog;
  * 
  * @author WRP
  * */
-public class MultitenancyTenantInformation {
+public abstract class MultitenancyTenantInformation {
 	
 	private String url;
 	private String database;
 	private Integer port;
 	private String username;
 	private String password;
+		
+	public MultitenancyTenantInformation(String url, String database, Integer port, String username, String password){
+		this.url = url;
+		this.database = database;
+		this.port = port;
+		this.username = username;
+		this.password = password;
+	}
 	
 	public String getUrl() {
 		return url;
-	}
-	
-	public void setUrl(String url) {
-		this.url = url;
 	}
 	
 	public String getDatabase() {
 		return database;
 	}
 	
-	public void setDatabase(String database) {
-		this.database = database;
-	}
-	
 	public Integer getPort() {
 		return port;
 	}
-	
-	public void setPort(Integer port) {
-		this.port = port;
-	}
-	
+		
 	public String getUsername() {
 		return username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	
 	public String getPassword() {
 		return password;
 	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}		
 }

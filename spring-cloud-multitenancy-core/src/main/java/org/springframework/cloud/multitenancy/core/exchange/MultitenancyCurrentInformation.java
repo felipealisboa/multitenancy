@@ -12,15 +12,18 @@ public class MultitenancyCurrentInformation{
 	/**
 	 * Customer identifier
 	 * */
-	private  static ThreadLocal<String> tenant = new ThreadLocal<String>();
+	private  static ThreadLocal<String> tenant = new ThreadLocal<>();
 	
 	/**
 	 * Name of the partition, which will be used to generate the entity name
 	 * */
-	private static ThreadLocal<String> partition = new ThreadLocal<String>();
+	private static ThreadLocal<String> partition = new ThreadLocal<>();
 	
 	
-
+	private MultitenancyCurrentInformation(){
+		throw new IllegalAccessError("Utility class");
+	}
+	
 	public static String getTenant() {
 		String tenant = MultitenancyCurrentInformation.tenant.get();
 		

@@ -1,13 +1,10 @@
 package org.springframework.cloud.multitenancy.core.exchange;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 
 public class MultitenancyCurrentInformationTest {
 	
@@ -50,7 +47,10 @@ public class MultitenancyCurrentInformationTest {
 				}
 				
 				String value = MultitenancyCurrentInformation.getTenant();
-				assertEquals("The information was not storing correctly, the object is not thred safe", tenant, value);
+				
+				if(value == null || !value.equals(tenant)){
+					throw new IllegalThreadStateException("The information was not storing correctly, the object is not thred safe");
+				}
 			}			
 		}
 	}

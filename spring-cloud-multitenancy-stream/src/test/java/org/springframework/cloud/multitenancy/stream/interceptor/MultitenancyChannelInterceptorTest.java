@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.cloud.multitenancy.core.exception.NotIdentifyTenantFieldException;
+import org.springframework.cloud.multitenancy.core.exception.PropertyNotSetException;
 import org.springframework.cloud.multitenancy.core.exception.TenantNotFoundException;
 import org.springframework.cloud.multitenancy.core.exchange.MultitenancyCurrentInformation;
 import org.springframework.cloud.multitenancy.core.properties.MultitenancyConfigLoader;
@@ -19,8 +19,8 @@ public class MultitenancyChannelInterceptorTest {
 	
 	private static final String FIELD_TENANT = "tenant";
 	
-	@Test(expected=NotIdentifyTenantFieldException.class)
-	public void should_launch_an_exception_when_the_tenant_field_is_not_configured(){
+	@Test(expected=PropertyNotSetException.class)
+	public void should_throw_an_exception_when_the_tenant_field_is_not_configured(){
 		
 		String tenant = "CLIENT_ID";
 		boolean jsonMessage = true;

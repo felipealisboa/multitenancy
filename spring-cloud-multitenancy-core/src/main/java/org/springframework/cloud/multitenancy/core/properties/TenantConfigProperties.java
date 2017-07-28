@@ -8,6 +8,7 @@ package org.springframework.cloud.multitenancy.core.properties;
 public class TenantConfigProperties {
 	
 	private String field;
+	private String dns;
 
 	public String getField() {
 		return field;
@@ -15,5 +16,13 @@ public class TenantConfigProperties {
 
 	public void setField(String field) {
 		this.field = field;
+	}
+
+	public String getDns() {
+		return dns;
+	}
+
+	public void setDns(String dns) {
+		this.dns = dns;
 	}	
 }
