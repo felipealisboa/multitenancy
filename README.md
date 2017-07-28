@@ -5,13 +5,13 @@ uma única instância de um aplicativo de software serve vários clientes.
 
 
 ## Como utilizar?
-A versão corrente da library é a "2.17.0.1" e possui suporte a dois tipos de arquitetura multi-tenant:
+A versão corrente da library é a "2.17.7.1" e possui suporte a dois tipos de arquitetura multi-tenant:
 
 - Orientada a schema.
 - Orientada a repositorio("Collection ou Tabela").
 
 
-### Modulos:
+### Modulos
 
 O projeto é subdividido em 4 modulos:
 - **spring-cloud-multitenancy-web**: Projeto responsavel por recuperar o tenant do cliente automaticamente interceptando a requisição em projetos Web.
@@ -21,7 +21,7 @@ O projeto é subdividido em 4 modulos:
 
 
 
-### Configurações:
+### Configurações
 
 
 ```
@@ -43,15 +43,59 @@ Essas três configurações são utilizadas nos projetos "spring-cloud-multitena
 definem a estrategia de multi-tenant e o tempo de atualização do catalago de banco de dados.
 
 
-### Como configurar meu projeto:
+## Como configurar meu projeto ?
+  
+  Varia de acordo com o contexto, de modo geral são necessarias duas dependencias, a primeira é referente ao tipo de projeto e a segunda referente ao banco de dados:
+  
+   EX: Projeto WEB
 
   ```xml
     <dependency>
-        <groupId>br.com.agilepromoter.cloud</groupId>
-        <artifactId>multitenancy</artifactId>
-        <version>1.17.5.1</version>
-    </dependency>
-  ```  
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-multitenancy-web</artifactId>
+		    <version>2.17.7.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-multitenancy-starter-mongo</artifactId>
+		    <version>2.17.7.1</version>
+		</dependency>
+  ```
+  
+  EX: Projeto AMQ
+  
+  ```xml
+    <dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-multitenancy-stream</artifactId>
+		    <version>2.17.7.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-multitenancy-starter-mysql</artifactId>
+		    <version>2.17.7.1</version>
+		</dependency>
+  ```
+  
+  Após adicionar as dependencias no pom.xml é necessario adicionar as anotações habilitando o multitenancy
+ 
+
+ ```java
+@SpringBootApplication
+@EnableMultitenancyWeb
+@EnableMultitenancyMongo
+public class ApplicationStart {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(ApplicationStart.class, args);
+	}
+}
+```
+
+
+
 
 
 ### Autor
