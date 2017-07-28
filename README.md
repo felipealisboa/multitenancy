@@ -50,33 +50,33 @@ definem a estrátegia de multi-tenant e o tempo de atualização do catálago de
    EX: Projeto WEB
 
   ```xml
-    <dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-multitenancy-web</artifactId>
-		    <version>2.17.7.1</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-multitenancy-starter-mongo</artifactId>
-		    <version>2.17.7.1</version>
-		</dependency>
+   <dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-multitenancy-web</artifactId>
+	    <version>2.17.7.1</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-multitenancy-starter-mongo</artifactId>
+	    <version>2.17.7.1</version>
+	</dependency>
   ```
   
   EX: Projeto AMQ
   
   ```xml
-    <dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-multitenancy-stream</artifactId>
-		    <version>2.17.7.1</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-multitenancy-starter-mysql</artifactId>
-		    <version>2.17.7.1</version>
-		</dependency>
+     <dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-multitenancy-stream</artifactId>
+	    <version>2.17.7.1</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-multitenancy-starter-mysql</artifactId>
+	    <version>2.17.7.1</version>
+	</dependency>
   ```
   
   Após adicionar as dependências no pom.xml é necessário adicionar as anotações habilitando o multitenancy
