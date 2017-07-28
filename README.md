@@ -11,13 +11,13 @@ A versão corrente da library é a "2.17.7.1" e possui suporte a dois tipos de a
 - Orientada a repositorio("Collection ou Tabela").
 
 
-### Modulos
+### Módulos
 
-O projeto é subdividido em 4 modulos:
-- **spring-cloud-multitenancy-web**: Projeto responsavel por recuperar o tenant do cliente automaticamente interceptando a requisição em projetos Web.
-- **spring-cloud-multitenancy-stream**: Projeto responsavel por recuperar o tenant do client automaticamente interceptando uma mensagem da fila em projetos AMQ.
-- **spring-cloud-multitenancy-starter-mysql**: Projeto responsavel por implementar a arquitetura multi-tenant no banco MySQL. 
-- **spring-cloud-multitenancy-starter-mongo**: Projeto responsavel por implementar a arquitetura multi-tenant no MongoDB.
+O projeto é subdividido em 4 módulos:
+- **spring-cloud-multitenancy-web**: Projeto responsável por recuperar o tenant do cliente automaticamente interceptando a requisição em projetos Web.
+- **spring-cloud-multitenancy-stream**: Projeto responsável por recuperar o tenant do cliente automaticamente interceptando uma mensagem da fila em projetos AMQ.
+- **spring-cloud-multitenancy-starter-mysql**: Projeto responsável por implementar a arquitetura multi-tenant no banco MySQL. 
+- **spring-cloud-multitenancy-starter-mongo**: Projeto responsável por implementar a arquitetura multi-tenant no MongoDB.
 
 
 
@@ -30,8 +30,8 @@ spring.cloud.multitenancy.tenant.dns=.meu.dominio
 
 ```
 Essas duas configurações são utilizadas nos projetos "spring-cloud-multitenancy-web" e "spring-cloud-multitenancy-stream", 
-o "field" deve ser preenchido com o nome do campo que contem o tenant do cliente. Nos projetos Web o tenant é extraido através do header ou DNS, 
-já nos projetos AMQ o tenant é extraido de um campo da mensagem.
+o "field" deve ser preenchido com o nome do campo que contém o tenant do cliente. Nos projetos Web o tenant é extraído através do header ou DNS, 
+já nos projetos AMQ o tenant é extraído de um campo da mensagem.
 
 ```
 spring.cloud.multitenancy.catalog.refresh=1000
@@ -40,12 +40,12 @@ spring.cloud.multitenancy.mysql.strategy=scheme
 ```
 
 Essas três configurações são utilizadas nos projetos "spring-cloud-multitenancy-starter-mysql" e "spring-cloud-multitenancy-starter-mongo"
-definem a estrategia de multi-tenant e o tempo de atualização do catalago de banco de dados.
+definem a estrátegia de multi-tenant e o tempo de atualização do catálago de banco de dados.
 
 
 ## Como configurar meu projeto ?
   
-  Varia de acordo com o contexto, de modo geral são necessarias duas dependencias, a primeira é referente ao tipo de projeto e a segunda referente ao banco de dados:
+  Varia de acordo com o contexto, de modo geral são necessárias duas dependências, a primeira é referente ao tipo de projeto e a segunda referente ao banco de dados:
   
    EX: Projeto WEB
 
@@ -79,7 +79,7 @@ definem a estrategia de multi-tenant e o tempo de atualização do catalago de b
 		</dependency>
   ```
   
-  Após adicionar as dependencias no pom.xml é necessario adicionar as anotações habilitando o multitenancy
+  Após adicionar as dependências no pom.xml é necessário adicionar as anotações habilitando o multitenancy
  
 
  ```java
