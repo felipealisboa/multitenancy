@@ -12,6 +12,8 @@ A versão corrente da library é a "2.17.7.1" e possui suporte a dois tipos de a
 
 - Orientada a repositorio("Collection ou Tabela").
 
+![alt text](https://lh3.googleusercontent.com/4U6Qg9ZHLLRgElZKf7-p0O1fj3Z4ecjOvJK6PCbSPoJkiMS7ZXPkkOChBFaxQZVT32pBlvWWRvjwbfQ=w1845-h897-rw "Orientada a repositorio")
+
 
 ### Módulos
 
