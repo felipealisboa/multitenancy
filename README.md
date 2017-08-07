@@ -8,6 +8,8 @@ uma única instância de um aplicativo de software serve vários clientes.
 A versão corrente da library é a "2.17.7.1" e possui suporte a dois tipos de arquitetura multi-tenant:
 
 - Orientada a schema.
+![alt text](https://lh4.googleusercontent.com/UpzhJDOx_9bqfEVas9rex7-KOsiFtfIyPOpMghtZ0ek8f0npuNHluRp2i9QoPsUP-mEqe0FamiLtURQ=w1845-h897 "Orientada a schema")
+
 - Orientada a repositorio("Collection ou Tabela").
 
 
