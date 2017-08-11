@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spring-cloud-multitenancy-parent</artifactId>
-	<version>1.17.8.1</version>
+	<version>1.17.8.2</version>
 	<packaging>pom</packaging>
 
 	<name>Spring Cloud Multitenancy</name>
