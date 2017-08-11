@@ -10,14 +10,15 @@ import java.lang.annotation.Target;
 
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.cloud.multitenancy.mysql.configuration.MultitenancyMySQLConfig;
+import org.springframework.cloud.multitenancy.mysql.support.MultitenancyMySQLRepositoryFactoryBean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 @ImportAutoConfiguration(MultitenancyMySQLConfig.class)
-//@EnableJpaRepositories
-//@EnableMongoRepositories(repositoryFactoryBeanClass=MultitenancyRepositoryFactoryBean.class)
+@EnableJpaRepositories(repositoryFactoryBeanClass=MultitenancyMySQLRepositoryFactoryBean.class)
 public @interface EnableMultitenancyMySQL {
 
 }
